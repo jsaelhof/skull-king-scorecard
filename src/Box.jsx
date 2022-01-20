@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
 import "./Box.css";
+import React, { useEffect, useState } from "react";
+import Input from "./Input";
 
-const Box = ({ round, prevTotal = 0, locked, onTotalUpdate }) => {
+const Box = ({ player, round, prevTotal = 0, locked, onTotalUpdate }) => {
   const [bid, setBid] = useState();
   const [tricks, setTricks] = useState();
   const [score, setScore] = useState();
@@ -10,7 +11,6 @@ const Box = ({ round, prevTotal = 0, locked, onTotalUpdate }) => {
   const [total, setTotal] = useState();
 
   useEffect(() => {
-    console.log("UE");
     if (bid !== undefined && tricks !== undefined) {
       let roundScore;
       let roundBonus = bonus ?? 0;
@@ -32,58 +32,14 @@ const Box = ({ round, prevTotal = 0, locked, onTotalUpdate }) => {
       setTotal(roundTotal);
       onTotalUpdate(round, roundTotal);
     }
-  }, [bid, bonus, onTotalUpdate, prevTotal, round, tricks]);
+  }, [bid, bonus, onTotalUpdate, player, prevTotal, round, tricks]);
 
   return (
     <div className="box">
-      <div className="bid">
-        <input
-          type="text"
-          maxLength={2}
-          onKeyDown={({ key, preventDefault, stopPropagation }) => {
-            if (
-              ![
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "0",
-                "Backspace",
-              ].includes(key)
-            ) {
-              console.log("prevent");
-              return false;
-            }
-          }} // TODO: Why doesn't this bloody work????
-          onChange={({ target }) => {
-            if (!locked) setBid(parseInt(target.value));
-          }}
-        />
-      </div>
-      <div className="tricks">
-        <input
-          type="text"
-          maxLength={2}
-          onChange={({ target }) => {
-            if (!locked) setTricks(parseInt(target.value));
-          }}
-        />
-      </div>
+      <Input className="bid" callback={setBid} locked={locked} />
+      <Input className="tricks" callback={setTricks} locked={locked} />
       <div className="score">{score}</div>
-      <div className="bonus">
-        <input
-          type="text"
-          maxLength={2}
-          onChange={({ target }) => {
-            if (!locked) setBonus(parseInt(target.value));
-          }}
-        />
-      </div>
+      <Input className="bonus" callback={setBonus} locked={locked} />
       <div className="subtotal">{subtotal}</div>
       <div className="total">{total}</div>
     </div>
