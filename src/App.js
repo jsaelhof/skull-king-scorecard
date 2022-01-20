@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <div class="background" />
-      <div style={{ display: "flex" }}>
+      <div>
         <Rounds />
 
         {PLAYERS.map((player) => (

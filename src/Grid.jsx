@@ -2,12 +2,12 @@ const Grid = ({ children }) => (
   <div
     style={{
       display: "grid",
-      rowGap: 16,
       columnGap: 24,
-      margin: "24px 24px 24px 0",
-      gridTemplateRows: "40px repeat(10, 80px)",
-      gridTemplateColumns: "max-content",
-      gridAutoFlow: "column",
+      marginTop: 24,
+      marginBottom: 32,
+      gridTemplateColumns: "80px repeat(10, 120px)",
+      gridTemplateRow: "max-content",
+      gridAutoFlow: "row",
     }}
   >
     {children}

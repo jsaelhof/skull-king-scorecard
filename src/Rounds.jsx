@@ -9,11 +9,11 @@ const Rounds = () => (
       <div
         key={i}
         style={{
-          width: 40,
-          height: "100%",
+          width: "100%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          textAlign: "center",
           fontSize: 24,
         }}
       >
