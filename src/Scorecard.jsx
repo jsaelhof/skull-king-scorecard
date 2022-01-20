@@ -1,3 +1,4 @@
+import "./Scorecard.css";
 import { times } from "lodash";
 import { useCallback, useState } from "react";
 import Box from "./Box";
@@ -18,7 +19,7 @@ const Scorecard = ({ player }) => {
 
   return (
     <Grid>
-      <div>{player}</div>
+      <div className="name">{player}</div>
 
       {times(10, (i) => (
         <Box

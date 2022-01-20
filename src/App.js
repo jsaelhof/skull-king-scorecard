@@ -7,6 +7,7 @@ const PLAYERS = ["Dad", "Mom", "Cole", "Ash"];
 function App() {
   return (
     <div className="App">
+      <div class="background" />
       <div style={{ display: "flex" }}>
         <Rounds />
 
