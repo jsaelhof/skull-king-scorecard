@@ -1,4 +1,12 @@
 .box {
+  display: grid;
+  grid-template-areas:
+    "bid score bonus"
+    "tricks score bonus"
+    "subtotal total total";
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(2, 20px) 40px;
+  font-size: 0.75rem;
   box-shadow: 0 0 8px 8px #ffffffaa;
   text-align: center;
   background: white;
