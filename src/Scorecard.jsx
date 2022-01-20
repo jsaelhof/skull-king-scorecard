@@ -8,7 +8,6 @@ const Scorecard = ({ player }) => {
   const [scores, setScores] = useState({});
 
   const onTotalUpdate = useCallback((round, total) => {
-    console.log("Update", round, total);
     setScores((prev) => ({
       ...prev,
       [round]: total,

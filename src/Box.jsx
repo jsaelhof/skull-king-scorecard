@@ -2,7 +2,7 @@ import "./Box.css";
 import React, { useEffect, useState } from "react";
 import Input from "./Input";
 
-const Box = ({ player, round, prevTotal = 0, locked, onTotalUpdate }) => {
+const Box = ({ player, round, prevTotal = 0, onTotalUpdate }) => {
   const [bid, setBid] = useState();
   const [tricks, setTricks] = useState();
   const [score, setScore] = useState();
@@ -31,15 +31,20 @@ const Box = ({ player, round, prevTotal = 0, locked, onTotalUpdate }) => {
       const roundTotal = prevTotal + roundScore + roundBonus;
       setTotal(roundTotal);
       onTotalUpdate(round, roundTotal);
+    } else {
+      setScore(undefined);
+      setSubtotal(undefined);
+      setTotal(undefined);
+      onTotalUpdate(round, undefined);
     }
   }, [bid, bonus, onTotalUpdate, player, prevTotal, round, tricks]);
 
   return (
     <div className="box">
-      <Input className="bid" callback={setBid} locked={locked} />
-      <Input className="tricks" callback={setTricks} locked={locked} />
+      <Input className="bid" onChange={setBid} />
+      <Input className="tricks" onChange={setTricks} />
       <div className="score">{score}</div>
-      <Input className="bonus" callback={setBonus} locked={locked} />
+      <Input className="bonus" onChange={setBonus} />
       <div className="subtotal">{subtotal}</div>
       <div className="total">{total}</div>
     </div>

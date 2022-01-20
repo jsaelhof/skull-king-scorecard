@@ -1,36 +1,30 @@
+import { useState } from "react";
+import InputMask from "react-input-mask";
 import "./Input.css";
 
-const Input = ({ callback, locked, className }) => (
-  <div className={className}>
-    <input
-      className="scoreInput"
-      type="text"
-      maxLength={2}
-      onKeyDown={({ key }) => {
-        if (
-          ![
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "0",
-            "Backspace",
-          ].includes(key)
-        ) {
-          console.log("prevent");
-          return false;
-        }
-      }} // TODO: Why doesn't this bloody work????
-      onChange={({ target }) => {
-        if (!locked) callback(parseInt(target.value));
-      }}
-    />
-  </div>
-);
+const Input = ({ onChange, className }) => {
+  const [value, setValue] = useState("");
+
+  return (
+    <div className={className}>
+      <InputMask
+        value={value}
+        mask="99"
+        maskChar=" "
+        className="scoreInput"
+        onChange={({ target }) => {
+          const val = parseInt(target.value);
+          if (isNaN(val)) {
+            setValue("");
+            onChange(undefined);
+          } else {
+            setValue(target.value);
+            onChange(val);
+          }
+        }}
+      />
+    </div>
+  );
+};
 
 export default Input;
