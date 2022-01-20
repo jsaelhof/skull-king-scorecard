@@ -1,6 +1,7 @@
 .box {
   box-shadow: 0 0 8px 8px #ffffffaa;
   text-align: center;
+  background: white;
 }
 
 .box > div {
@@ -9,7 +10,6 @@
   justify-content: center;
   border: 1px solid grey;
   height: 100%;
-  background: white;
 }
 
 .bid {
@@ -35,4 +35,12 @@
 .total {
   grid-area: total;
   font-size: 1.25rem;
+}
+
+.failed {
+  background: rgb(245, 211, 211);
+}
+
+.success {
+  background: rgb(220, 241, 229);
 }

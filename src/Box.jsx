@@ -1,6 +1,8 @@
 import "./Box.css";
 import React, { useEffect, useState } from "react";
 import Input from "./Input";
+import clsx from "clsx";
+import { isNil } from "lodash";
 
 const Box = ({ player, round, prevTotal = 0, onTotalUpdate }) => {
   const [bid, setBid] = useState();
@@ -41,8 +43,22 @@ const Box = ({ player, round, prevTotal = 0, onTotalUpdate }) => {
 
   return (
     <div className="box">
-      <Input className="bid" onChange={setBid} />
-      <Input className="tricks" onChange={setTricks} />
+      <Input
+        className={clsx(
+          "bid",
+          !isNil(subtotal) && subtotal < 0 && "failed",
+          !isNil(subtotal) && subtotal > 0 && "success"
+        )}
+        onChange={setBid}
+      />
+      <Input
+        className={clsx(
+          "tricks",
+          !isNil(subtotal) && subtotal < 0 && "failed",
+          !isNil(subtotal) && subtotal > 0 && "success"
+        )}
+        onChange={setTricks}
+      />
       <div className="score">{score}</div>
       <Input className="bonus" onChange={setBonus} />
       <div className="subtotal">{subtotal}</div>
