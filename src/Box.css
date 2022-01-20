@@ -1,0 +1,39 @@
+.box > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid grey;
+  height: 100%;
+}
+
+.bid {
+  grid-area: bid;
+}
+
+.score {
+  grid-area: score;
+}
+
+.bonus {
+  grid-area: bonus;
+}
+
+.tricks {
+  grid-area: tricks;
+}
+
+.subtotal {
+  grid-area: subtotal;
+}
+
+.total {
+  grid-area: total;
+  font-size: 1.25rem;
+}
+
+.bid > input,
+.tricks > input,
+.bonus > input {
+  all: unset;
+  width: 100%;
+}
