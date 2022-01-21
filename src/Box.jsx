@@ -60,7 +60,12 @@ const Box = ({ player, round, prevTotal = 0, onTotalUpdate }) => {
         onChange={setTricks}
       />
       <div className="score">{score}</div>
-      <Input className="bonus" onChange={setBonus} />
+      <Input
+        className="bonus"
+        onChange={setBonus}
+        maxLength={3}
+        allowNegative
+      />
       <div className="subtotal">{subtotal}</div>
       <div className="total">{total}</div>
     </div>

@@ -1,20 +1,45 @@
 import { useState } from "react";
-import InputMask from "react-input-mask";
 import "./Input.css";
 
-const Input = ({ onChange, className }) => {
+const allowedKeys = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "0",
+  "Backspace",
+];
+
+const negativeKeys = [...allowedKeys, "-"];
+
+const Input = ({ onChange, allowNegative, className, maxLength = 2 }) => {
   const [value, setValue] = useState("");
 
   return (
     <div className={className}>
-      <InputMask
+      <input
+        type="text"
         value={value}
-        mask="99"
-        maskChar=" "
         className="scoreInput"
+        onKeyDown={(e) =>
+          !(allowNegative ? negativeKeys : allowedKeys).includes(e.key) &&
+          e.preventDefault()
+        }
+        maxLength={maxLength}
         onChange={({ target }) => {
           const val = parseInt(target.value);
-          if (isNaN(val)) {
+          if (target.value === "-") {
+            // If the string is just "-" then we're trying to type a negative number.
+            // Allow it, but don't check the parse because it's NaN until the second character comes through.
+            // Send out a callback value of undefined.
+            setValue("-");
+            onChange(undefined);
+          } else if (isNaN(val)) {
             setValue("");
             onChange(undefined);
           } else {
