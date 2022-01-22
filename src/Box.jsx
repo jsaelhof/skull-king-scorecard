@@ -4,7 +4,7 @@ import Input from "./Input";
 import clsx from "clsx";
 import { isNil } from "lodash";
 
-const Box = ({ player, round, prevTotal = 0, onTotalUpdate }) => {
+const Box = ({ player, playerNum, round, prevTotal = 0, onTotalUpdate }) => {
   const [bid, setBid] = useState();
   const [tricks, setTricks] = useState();
   const [score, setScore] = useState();
@@ -50,6 +50,7 @@ const Box = ({ player, round, prevTotal = 0, onTotalUpdate }) => {
           !isNil(subtotal) && subtotal > 0 && "success"
         )}
         onChange={setBid}
+        focusId={{ phase: 0, playerNum, round }}
       />
       <Input
         className={clsx(
@@ -58,6 +59,7 @@ const Box = ({ player, round, prevTotal = 0, onTotalUpdate }) => {
           !isNil(subtotal) && subtotal > 0 && "success"
         )}
         onChange={setTricks}
+        focusId={{ phase: 1, playerNum, round }}
       />
       <div className="score">{score}</div>
       <Input
@@ -65,6 +67,7 @@ const Box = ({ player, round, prevTotal = 0, onTotalUpdate }) => {
         onChange={setBonus}
         maxLength={3}
         allowNegative
+        focusId={{ phase: 2, playerNum, round }}
       />
       <div className="subtotal">{subtotal}</div>
       <div className="total">{total}</div>

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { isEqual } from "lodash";
+import { useEffect, useRef, useState } from "react";
+import { useAppContext } from "./AppContext";
 import "./Input.css";
 
 const allowedKeys = [
@@ -17,19 +19,38 @@ const allowedKeys = [
 
 const negativeKeys = [...allowedKeys, "-"];
 
-const Input = ({ onChange, allowNegative, className, maxLength = 2 }) => {
+const Input = ({
+  onChange,
+  allowNegative,
+  className,
+  maxLength = 2,
+  focusId,
+}) => {
   const [value, setValue] = useState("");
+  const { focus, nextFocus, setFocus } = useAppContext();
+  const ref = useRef();
+
+  // If this input's information matches the current focus info in the context, then focus this field
+  useEffect(() => {
+    isEqual(focusId, focus) && ref?.current?.focus();
+  }, [focus, focusId]);
 
   return (
     <div className={className}>
       <input
+        ref={ref}
         type="text"
         value={value}
         className="scoreInput"
-        onKeyDown={(e) =>
+        onFocus={() => setFocus(focusId)}
+        onKeyDown={(e) => {
+          if (e.key === "Tab" || e.key === "Enter") {
+            nextFocus();
+          }
+
           !(allowNegative ? negativeKeys : allowedKeys).includes(e.key) &&
-          e.preventDefault()
-        }
+            e.preventDefault();
+        }}
         maxLength={maxLength}
         onChange={({ target }) => {
           const val = parseInt(target.value);

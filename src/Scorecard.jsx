@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import Box from "./Box";
 import Grid from "./Grid";
 
-const Scorecard = ({ player }) => {
+const Scorecard = ({ player, playerNum }) => {
   const [scores, setScores] = useState({});
 
   const onTotalUpdate = useCallback((round, total) => {
@@ -13,8 +13,6 @@ const Scorecard = ({ player }) => {
       [round]: total,
     }));
   }, []);
-
-  console.log(scores);
 
   return (
     <Grid>
@@ -26,6 +24,7 @@ const Scorecard = ({ player }) => {
           round={i + 1}
           prevTotal={i === 0 ? 0 : scores[i]}
           player={player}
+          playerNum={playerNum}
           onTotalUpdate={onTotalUpdate}
         />
       ))}
