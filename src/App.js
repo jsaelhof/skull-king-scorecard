@@ -16,7 +16,7 @@ function App() {
           <Rounds />
 
           {PLAYERS.map((player, i) => (
-            <Scorecard player={player} playerNum={i} />
+            <Scorecard key={player} player={player} playerNum={i} />
           ))}
         </div>
       </div>
