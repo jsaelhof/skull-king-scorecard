@@ -1,8 +1,12 @@
 .App {
   position: relative;
-  padding-left: 24px;
-  width: 100vw;
-  height: 100vh;
+  padding: 0 24px 24px;
+  width: fit-content;
+  box-sizing: border-box;
+}
+
+.container {
+  width: fit-content;
 }
 
 .background {

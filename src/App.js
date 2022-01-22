@@ -2,6 +2,7 @@ import "./App.css";
 import Scorecard from "./Scorecard";
 import Rounds from "./Rounds";
 import { AppProvider } from "./AppContext";
+import Docs from "./Docs";
 
 const PLAYERS = ["Dad", "Mom", "Cole", "Ash"];
 
@@ -15,13 +16,15 @@ function App() {
   return (
     <AppProvider players={PLAYERS}>
       <div className="App">
-        <div class="background" />
-        <div>
+        <div className="background" />
+        <div className="container">
           <Rounds />
 
           {PLAYERS.map((player, i) => (
             <Scorecard key={player} player={player} playerNum={i} />
           ))}
+
+          <Docs />
         </div>
       </div>
     </AppProvider>

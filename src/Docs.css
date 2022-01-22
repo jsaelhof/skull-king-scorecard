@@ -1,0 +1,13 @@
+.docs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+}
+
+.docs h2 {
+  font-family: "Pirata One", sans-serif;
+}
+
+.label {
+  font-weight: 700;
+}
