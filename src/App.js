@@ -5,7 +5,11 @@ import { AppProvider } from "./AppContext";
 
 const PLAYERS = ["Dad", "Mom", "Cole", "Ash"];
 
-// TODO: Persist scores to local storage in case of interuption, will require a new game button
+window.addEventListener("beforeunload", (e) => {
+  e.preventDefault();
+  return (e.returnValue = "Are you sure you want to close?");
+});
+
 // TODO: Add pirate powers, loot, kraken, white whale reference rules below the scores
 function App() {
   return (
