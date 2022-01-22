@@ -45,6 +45,11 @@ const Input = ({
         onFocus={() => setFocus(focusId)}
         onKeyDown={(e) => {
           if (e.key === "Tab" || e.key === "Enter") {
+            // If the field is not the bonus phase and is blank, set it to 0
+            if (focusId.phase !== 2 && value === "") {
+              setValue("0");
+              onChange(0);
+            }
             nextFocus();
           }
 
