@@ -10,7 +10,7 @@ const AppProvider = ({ players, children }) => {
     round: 1,
   });
 
-  // Expost a list change function so that we can clear any state from the old list while changing to a new one
+  // TODO: Refactor to clean this up
   const nextFocus = useCallback(() => {
     setFocus((prev) => {
       const moveToNextPhase = prev.playerNum + 1 === players.length;
