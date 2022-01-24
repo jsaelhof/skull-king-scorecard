@@ -6,22 +6,30 @@ import Grid from "./Grid";
 
 const Scorecard = ({ player, playerNum }) => {
   const [scores, setScores] = useState(
-    times(10).reduce((acc, i) => {
-      acc[i] = {};
-      return acc;
-    }, {})
+    (window.sessionStorage.getItem(player) &&
+      JSON.parse(window.sessionStorage.getItem(player))) ||
+      times(10).reduce((acc, i) => {
+        acc[i] = {};
+        return acc;
+      }, {})
   );
 
   const updateBoxScore = useCallback(
-    (round, update) =>
-      setScores((prev) => ({
-        ...prev,
-        [round]: {
-          ...prev[round],
-          ...update,
-        },
-      })),
-    []
+    (round, update) => {
+      setScores((prev) => {
+        const updatedScores = {
+          ...prev,
+          [round]: {
+            ...prev[round],
+            ...update,
+          },
+        };
+
+        window.sessionStorage.setItem(player, JSON.stringify(updatedScores));
+        return updatedScores;
+      });
+    },
+    [player]
   );
 
   return (

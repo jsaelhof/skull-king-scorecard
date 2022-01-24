@@ -61,6 +61,7 @@ const Box = ({
   return (
     <div className="box">
       <Input
+        initVal={bid}
         className={clsx(
           "bid",
           !isNil(subtotal) && subtotal < 0 && "failed",
@@ -70,6 +71,7 @@ const Box = ({
         focusId={{ phase: 0, playerNum, round }}
       />
       <Input
+        initVal={tricks}
         className={clsx(
           "tricks",
           !isNil(subtotal) && subtotal < 0 && "failed",
@@ -80,6 +82,7 @@ const Box = ({
       />
       <div className="score">{score}</div>
       <Input
+        initVal={bonus}
         className="bonus"
         onChange={setBonus}
         maxLength={3}

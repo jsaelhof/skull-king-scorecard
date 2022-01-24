@@ -20,13 +20,14 @@ const allowedKeys = [
 const negativeKeys = [...allowedKeys, "-"];
 
 const Input = ({
+  initVal, // Used when restoring an in-progress game from sessionStorage
   onChange,
   allowNegative,
   className,
   maxLength = 2,
   focusId,
 }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initVal ?? "");
   const { focus, nextFocus, setFocus } = useAppContext();
   const ref = useRef();
 
