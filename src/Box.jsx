@@ -1,24 +1,47 @@
 import "./Box.css";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import Input from "./Input";
 import clsx from "clsx";
 import { isNil } from "lodash";
 
-const Box = ({ player, playerNum, round, prevTotal = 0, onTotalUpdate }) => {
-  const [bid, setBid] = useState();
-  const [tricks, setTricks] = useState();
-  const [score, setScore] = useState();
-  const [bonus, setBonus] = useState();
-  const [subtotal, setSubtotal] = useState();
-  const [total, setTotal] = useState();
+const Box = ({
+  player,
+  playerNum,
+  round,
+  boxScore: { bid, tricks, bonus, score, subtotal, total },
+  updateBoxScore,
+  prevTotal = 0,
+}) => {
+  const cards = round + 1; // round is zero-based
+
+  const setBid = useCallback(
+    (bid) => updateBoxScore(round, { bid }),
+    [round, updateBoxScore]
+  );
+
+  const setTricks = useCallback(
+    (tricks) => updateBoxScore(round, { tricks }),
+    [round, updateBoxScore]
+  );
+
+  const setBonus = useCallback(
+    (bonus) => updateBoxScore(round, { bonus }),
+    [round, updateBoxScore]
+  );
+
+  const setScores = useCallback(
+    (score, subtotal, total) =>
+      updateBoxScore(round, { score, subtotal, total }),
+    [round, updateBoxScore]
+  );
 
   useEffect(() => {
-    if (bid !== undefined && tricks !== undefined) {
+    if (!isNil(bid) && !isNil(tricks)) {
       let roundScore;
       let roundBonus = bonus ?? 0;
       if (bid === tricks) {
         if (bid === 0) {
-          roundScore = round * 10;
+          roundScore = cards * 10;
         } else {
           roundScore = bid * 20;
         }
@@ -27,19 +50,13 @@ const Box = ({ player, playerNum, round, prevTotal = 0, onTotalUpdate }) => {
         roundBonus = 0; // Ignore bonus if bid is not met
       }
 
-      setScore(roundScore);
-      setSubtotal(roundScore + roundBonus);
-
-      const roundTotal = prevTotal + roundScore + roundBonus;
-      setTotal(roundTotal);
-      onTotalUpdate(round, roundTotal);
+      const subtotal = roundScore + roundBonus;
+      const total = prevTotal + subtotal;
+      setScores(roundScore, subtotal, total);
     } else {
-      setScore(undefined);
-      setSubtotal(undefined);
-      setTotal(undefined);
-      onTotalUpdate(round, undefined);
+      setScores(undefined, undefined, undefined);
     }
-  }, [bid, bonus, onTotalUpdate, player, prevTotal, round, tricks]);
+  }, [bid, bonus, cards, player, prevTotal, setScores, tricks]);
 
   return (
     <div className="box">

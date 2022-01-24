@@ -7,7 +7,7 @@ const AppProvider = ({ players, children }) => {
   const [focus, setFocus] = useState({
     phase: 0,
     playerNum: 0,
-    round: 1,
+    round: 0,
   });
 
   // TODO: Refactor to clean this up

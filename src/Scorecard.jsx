@@ -5,14 +5,24 @@ import Box from "./Box";
 import Grid from "./Grid";
 
 const Scorecard = ({ player, playerNum }) => {
-  const [scores, setScores] = useState({});
+  const [scores, setScores] = useState(
+    times(10).reduce((acc, i) => {
+      acc[i] = {};
+      return acc;
+    }, {})
+  );
 
-  const onTotalUpdate = useCallback((round, total) => {
-    setScores((prev) => ({
-      ...prev,
-      [round]: total,
-    }));
-  }, []);
+  const updateBoxScore = useCallback(
+    (round, update) =>
+      setScores((prev) => ({
+        ...prev,
+        [round]: {
+          ...prev[round],
+          ...update,
+        },
+      })),
+    []
+  );
 
   return (
     <Grid>
@@ -21,11 +31,12 @@ const Scorecard = ({ player, playerNum }) => {
       {times(10, (i) => (
         <Box
           key={`round${i}`}
-          round={i + 1}
-          prevTotal={i === 0 ? 0 : scores[i]}
+          round={i}
+          prevTotal={i === 0 ? 0 : scores[i - 1].total}
+          boxScore={scores[i]}
+          updateBoxScore={updateBoxScore}
           player={player}
           playerNum={playerNum}
-          onTotalUpdate={onTotalUpdate}
         />
       ))}
     </Grid>
