@@ -7,9 +7,9 @@
   grid-template-columns: repeat(3, 40px);
   grid-template-rows: repeat(2, 20px) 40px;
   font-size: 0.75rem;
-  box-shadow: 0 0 8px 8px #ffffffaa;
+  box-shadow: 0 0 8px 4px #00000022;
   text-align: center;
-  background: white;
+  background: #ffffffdd;
 }
 
 .box > div {
