@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 
 const AppContext = createContext({});
 
-const AppProvider = ({ players, children }) => {
+const AppProvider = ({ players = [], children }) => {
   const [focus, setFocus] = useState({
     phase: 0,
     playerNum: 0,

@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import Box from "./Box";
 import Grid from "./Grid";
 
-const Scorecard = ({ player, playerNum }) => {
+const Scorecard = ({ player, playerNum, onChangeFirstDeal }) => {
   const [scores, setScores] = useState(
     (window.sessionStorage.getItem(player) &&
       JSON.parse(window.sessionStorage.getItem(player))) ||
@@ -34,7 +34,9 @@ const Scorecard = ({ player, playerNum }) => {
 
   return (
     <Grid>
-      <div className="name">{player}</div>
+      <div className="name" onClick={() => onChangeFirstDeal(player)}>
+        {player}
+      </div>
 
       {times(10, (i) => (
         <Box
