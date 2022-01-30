@@ -28,7 +28,9 @@ const Rounds = ({ firstDeal, players }) => (
           }}
         >
           {firstDeal &&
-            players[(players.findIndex((v) => v === firstDeal) + i) % 3]}
+            players[
+              (players.findIndex((v) => v === firstDeal) + i) % players.length
+            ]}
         </div>
       </div>
     ))}
