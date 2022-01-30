@@ -47,7 +47,7 @@ const Box = ({
         }
       } else {
         roundScore = Math.abs(bid - tricks) * -10;
-        roundBonus = 0; // Ignore bonus if bid is not met
+        roundBonus = roundBonus < 0 ? roundBonus : 0; // Ignore bonus if bid is not met unless negative (failed bid on Rascal of Roatan)
       }
 
       const subtotal = roundScore + roundBonus;
